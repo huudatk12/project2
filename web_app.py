@@ -35,8 +35,8 @@ features = st.beta_container()
 modelTraining = st.beta_container()
 prediction =st.beta_container()
 interative = st.beta_container()
-image = Image.open('F:/MachineLearning/Multi_step_timeseries/image/hanoi.jpg')
-image2 = Image.open('F:/MachineLearning/Multi_step_timeseries/image/tphcm.jpg')
+image = Image.open('image/hanoi.jpg')
+image2 = Image.open('image/tphcm.jpg')
 
 with header:
 	st.title("PM2.5 Prediction Web App")
@@ -46,7 +46,7 @@ with dataset:
 	st.header('Data input:')
 	option = st.sidebar.selectbox('Lựa chọn thành phố', (' ','HN', 'TPHCM'))
 	if option == 'HN':
-		dataset = pd.read_csv('F:/MachineLearning/Multi_step_timeseries/data/HN.csv')
+		dataset = pd.read_csv('data/HN.csv')
 		st.write(dataset)
 		st.sidebar.image(image, caption='TP. Hà Nội')
 		st.subheader('Biểu đồ biểu diễn 50 giá trị dại diện cho dữ liệu nồng độ PM2.5 tại TP Hà Nội /theo ngày')
@@ -104,7 +104,7 @@ with modelTraining:
 			model.compile(optimizer='adam', loss='mae')
 			model.summary()
 			history = model.fit(trainX, trainY, epochs=30, batch_size=16, validation_split=0.1, verbose=0)
-			model.save('F:/MachineLearning/Multi_step_timeseries/model/lstm_model.h5')
+			model.save('model/lstm_model.h5')
 			yhat = model
 			# data_load_state.text('Loading....done!')
 		else:
@@ -119,7 +119,7 @@ with prediction:
 	if option == 'HN' or option == 'TPHCM':
 		if n_part != 0:
 			if n_future != 0:
-				model1 = load_model('F:/MachineLearning/Multi_step_timeseries/model/lstm_model.h5')
+				model1 = load_model('model/lstm_model.h5')
 				train_dates = pd.to_datetime(dataset['date'])
 
 				forecast_period_dates = pd.date_range(list(train_dates)[-1], periods=n_future, freq='1d').tolist()
