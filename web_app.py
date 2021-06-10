@@ -53,7 +53,7 @@ with dataset:
 		pm25 = pd.DataFrame(dataset['pm25'].value_counts()).head(50)
 		st.bar_chart(pm25)
 	elif option == 'TPHCM':
-		dataset = pd.read_csv('F:/MachineLearning/Multi_step_timeseries/data/TPHCM.csv')
+		dataset = pd.read_csv('data/TPHCM.csv')
 		# header = 0, infer_datetime_format = True, index_col = 0
 		st.write(dataset)
 		st.sidebar.image(image2, caption='TP. Hồ Chí Minh')
